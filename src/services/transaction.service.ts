@@ -5,7 +5,6 @@ import { Transaction } from '../models/transaction';
 import { IUserAsRequest } from '../types/entities/user';
 import { ObjectId } from 'bson';
 import { errorMessages } from '../errors';
-import util from 'node:util';
 import { omit } from 'lodash';
 import httpStatus from 'http-status';
 
@@ -42,7 +41,7 @@ export class TransactionsService {
         const existingTransaction = await Transaction.find({ owner: ownerId, _id: transactionId });
 
         if (existingTransaction.length === 0) {
-            throw new AppError(httpStatus.NOT_FOUND, util.format(errorMessages.TRANSACTIONS.TRANSACTION_NOT_FOUND, transactionId));
+            throw new AppError(httpStatus.NOT_FOUND, errorMessages.TRANSACTIONS.TRANSACTION_NOT_FOUND);
         }
 
         const removingItem = await Transaction.findByIdAndRemove(transactionId);

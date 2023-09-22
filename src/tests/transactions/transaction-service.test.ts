@@ -8,7 +8,6 @@ import { setMockSettings } from '../utils/setMockSettings';
 import { setUsersInDB, existingUser, setExistingUser, existingUserObjectId, fakeData } from '../fixtures/auth-service.fixtures';
 import { errorMessages } from '../../errors';
 import { ObjectId } from 'bson';
-import util from 'node:util';
 
 setDatabaseConnection();
 setMockSettings();
@@ -128,7 +127,7 @@ describe('Transaction-Service tests method delete', () => {
 
         await expect(TransactionsService.delete(existingUserObjectId, deletedTransactionId)).rejects.toMatchObject({
             code: 404,
-            message: util.format(errorMessages.TRANSACTIONS.TRANSACTION_NOT_FOUND, deletedTransactionId)
+            message: errorMessages.TRANSACTIONS.TRANSACTION_NOT_FOUND
         });
 
         expect(findTransaction).toBeCalledWith({

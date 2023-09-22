@@ -12,7 +12,6 @@ import { errorMessages } from '../../errors';
 import Token from '../../helpers/generateToken';
 import { ObjectId } from 'bson';
 import { mockReqAndNext } from '../utils/mockAuth';
-import util from 'node:util';
 import { Transaction } from '../../models/transaction';
 import { TransactionsService } from '../../services/transaction.service';
 import { User } from '../../models/user';
@@ -989,7 +988,7 @@ describe('DELETE:/api/wallet-api/transactions/', () => {
         expect(deleteService).toBeCalledWith(existingUserObjectId, invalidTransactionId);
         expect(result.status).toBe(httpStatus.NOT_FOUND);
         expect(result.body).toEqual(expect.objectContaining({
-            message: util.format(errorMessages.TRANSACTIONS.TRANSACTION_NOT_FOUND, invalidTransactionId)
+            message: errorMessages.TRANSACTIONS.TRANSACTION_NOT_FOUND
         }));
     });
 
